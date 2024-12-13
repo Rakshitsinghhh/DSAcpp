@@ -1,0 +1,24 @@
+class Solution {
+public:
+    ListNode* modifiedList(vector<int>& nums, ListNode* head) {
+        ListNode* temp = head;
+        unordered_set<int> seen;
+
+        for(int i = 0; i < nums.size(); i++) {
+            seen.insert(nums[i]);
+        }
+        while (head != nullptr && seen.find(head->val) != seen.end()) {
+            head = head->next;
+        }
+
+        while (temp != nullptr && temp->next != nullptr) {
+            if (seen.find(temp->next->val) != seen.end()) { 
+                temp->next = temp->next->next; 
+            } else {
+                temp = temp->next;
+            }
+        }
+
+        return head;
+    }
+};
