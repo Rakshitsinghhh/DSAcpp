@@ -1,0 +1,25 @@
+class Solution {
+public:
+    int countDays(int days, vector<vector<int>>& meetings) {
+        vector<bool> markedDays(days + 1, false);
+
+
+        for (auto& ele : meetings) {
+            int start = ele[0];
+            int end = ele[1];
+            for (int j = start; j <= end; j++) {
+                markedDays[j] = true;
+            }
+        }
+
+
+        int missingDays = 0;
+        for (int i = 1; i <= days; i++) {
+            if (!markedDays[i]) {
+                missingDays++;
+            }
+        }
+
+        return missingDays;
+    }
+};
