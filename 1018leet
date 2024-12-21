@@ -1,0 +1,29 @@
+class Solution {
+public:
+    vector<bool> prefixesDivBy5(vector<int>& nums) {
+        vector<int> digits; // Fixed typo: Renamed 'digit' to 'digits'
+        vector<bool> result; // To store the final output
+        string s;
+        
+        for (int i = 0; i < nums.size(); i++) {
+            s = "";
+            for (int j = 0; j <= i; j++) { // Fixed loop to iterate correctly
+                s += to_string(nums[j]); // Fixed: Use 'nums' instead of 'arr' and convert to string
+            }
+            digits.push_back(stoi(s)); // Fixed: Push integer value, not "string"
+        }
+
+        for (int digit : digits) {
+            if(digit % 5 == 0)
+            {
+                result.push_back(true);
+            }
+            else
+            {
+                result.push_back(false); 
+            }
+        }
+        
+        return result;
+    }
+};
