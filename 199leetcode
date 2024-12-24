@@ -1,0 +1,42 @@
+class Solution {
+public:
+    vector<int> rightSideView(TreeNode* root) {
+        if (root == nullptr) {
+            return {};
+        }
+
+        vector<vector<int>> levels;
+        queue<TreeNode*> q; 
+        q.push(root);
+        q.push(nullptr);
+
+        vector<int> small;
+        while (!q.empty()) {
+            TreeNode* temp = q.front();
+            q.pop();
+
+            if (temp == nullptr) {
+                levels.push_back(small);
+                small.clear();
+                if (!q.empty()) {
+                    q.push(nullptr);
+                }
+            } else {
+                small.push_back(temp->val);
+                if (temp->left) {
+                    q.push(temp->left);
+                }
+                if (temp->right) {
+                    q.push(temp->right);
+                }
+            }
+        }
+
+        vector<int> final;
+        for (auto& ele : levels) {
+            final.push_back(ele.back());
+        }
+        return final;
+    }
+};
+199
