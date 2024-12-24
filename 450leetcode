@@ -1,0 +1,45 @@
+class Solution {
+private:
+    TreeNode* findMin(TreeNode* root) {
+        while (root->left != nullptr) {
+            root = root->left;
+        }
+        return root;
+    }
+
+public:
+    TreeNode* deleteNode(TreeNode* root, int key) {
+        if (root == nullptr) {
+            return nullptr; // Base case: If the tree is empty
+        }
+
+        if (key < root->val) {
+            root->left = deleteNode(root->left, key); // Recurse into the left subtree
+        } else if (key > root->val) {
+            root->right = deleteNode(root->right, key); // Recurse into the right subtree
+        } else {
+            // Node to delete found
+            if (root->left == nullptr && root->right == nullptr) {
+                // Case 1: No child
+                delete root;
+                return nullptr;
+            } else if (root->left == nullptr) {
+                // Case 2: One right child
+                TreeNode* temp = root->right;
+                delete root;
+                return temp;
+            } else if (root->right == nullptr) {
+                // Case 3: One left child
+                TreeNode* temp = root->left;
+                delete root;
+                return temp;
+            } else {
+                // Case 4: Two children
+                TreeNode* temp = findMin(root->right); // Find the minimum node in the right subtree
+                root->val = temp->val; // Replace root's value with the successor's value
+                root->right = deleteNode(root->right, temp->val); // Delete the successor node
+            }
+        }
+        return root;
+    }
+};
