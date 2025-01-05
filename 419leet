@@ -1,0 +1,47 @@
+class Solution {
+private:
+    void bfs(int row, int col, vector<vector<int>> &vis, const vector<vector<char>>& grid) {
+        int n = grid.size();
+        int m = grid[0].size();
+        queue<pair<int, int>> q;
+
+        vector<vector<int>> direction = {{-1, 0}, {1, 0}, {0, -1}, {0, 1}};
+
+        q.push({row, col});
+        vis[row][col] = 1;
+
+        while (!q.empty()) {
+            int nrow = q.front().first;
+            int ncol = q.front().second;
+            q.pop();
+
+            for (auto& dir : direction) {
+                int crow = nrow + dir[0];
+                int ccol = ncol + dir[1];
+
+                if (crow >= 0 && ccol >= 0 && crow < n && ccol < m && !vis[crow][ccol] && grid[crow][ccol] == 'X') {
+                    vis[crow][ccol] = 1;
+                    q.push({crow, ccol});
+                }
+            }
+        }
+    }
+
+public:
+    int countBattleships(vector<vector<char>>& board) {
+        int n = board.size();
+        int m = board[0].size();
+        int count = 0;
+        vector<vector<int>> vis(n, vector<int>(m, 0));
+
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < m; j++) {
+                if (!vis[i][j] && board[i][j] == 'X') {
+                    count++;
+                    bfs(i, j, vis, board);
+                }
+            }
+        }
+        return count;
+    }
+};
