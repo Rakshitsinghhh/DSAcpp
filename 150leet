@@ -1,0 +1,27 @@
+class Solution {
+public:
+    int evalRPN(vector<string>& tokens) {
+        stack<int> st; 
+
+        for (auto& ele : tokens) {
+            if (isdigit(ele.back())) { 
+                st.push(stoi(ele)); 
+            } else {
+                int a = st.top(); st.pop();
+                int b = st.top(); st.pop();
+
+                if (ele == "+") {
+                    st.push(b + a); 
+                } else if (ele == "-") {
+                    st.push(b - a); 
+                } else if (ele == "*") {
+                    st.push(b * a); 
+                } else if (ele == "/") {
+                    st.push(b / a); 
+                }
+            }
+        }
+
+        return st.top(); 
+    }
+};
