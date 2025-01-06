@@ -1,0 +1,28 @@
+class Solution {
+public:
+    vector<int> pancakeSort(vector<int>& arr) {
+        vector<int> final; 
+        int n = arr.size(); 
+
+        for (int i = n; i > 1; i--) { 
+            int maxIndex = 0;
+            
+            for (int j = 0; j < i; j++) {
+                if (arr[j] > arr[maxIndex]) {
+                    maxIndex = j;
+                }
+            }
+
+            if (maxIndex != i - 1) {
+                if (maxIndex > 0) {
+                    reverse(arr.begin(), arr.begin() + maxIndex + 1);
+                    final.push_back(maxIndex + 1); 
+                }
+
+                reverse(arr.begin(), arr.begin() + i);
+                final.push_back(i); 
+            }
+        }
+        return final; 
+    }
+};
