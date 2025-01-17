@@ -1,0 +1,20 @@
+class Solution {
+public:
+    int removeDuplicates(vector<int>& nums) {
+        unordered_map<int,int> seen;
+        vector<int> final;
+        
+
+        for(int ele : nums) {
+            seen[ele]++;
+        }
+
+        for (auto& entry : seen) {
+            final.push_back(entry.first); 
+        }
+
+        sort(final.begin(),final.end());
+        nums = final;
+        return nums.size();
+    }
+};
