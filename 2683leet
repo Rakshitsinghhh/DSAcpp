@@ -1,0 +1,15 @@
+class Solution {
+public:
+    bool doesValidArrayExist(vector<int>& derived) {
+        int last=0;
+
+        for(int ele : derived)
+        {
+            if(ele==1)
+            {
+                last=~last;
+            }
+        }
+        return last==0;
+    }
+};
