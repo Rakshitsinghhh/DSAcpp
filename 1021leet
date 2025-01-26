@@ -1,0 +1,24 @@
+class Solution {
+public:
+    string removeOuterParentheses(string s) {
+        string final = "";
+        int balance = 0;
+
+        for (int i = 0; i < s.size(); i++) {
+            if (s[i] == '(') {
+                if (balance > 0) {
+                    final += s[i];  // Add '(' only if it's not the outermost one
+                }
+                balance++;
+            } 
+            else if (s[i] == ')') {
+                balance--;
+                if (balance > 0) {
+                    final += s[i];  // Add ')' only if it's not the outermost one
+                }
+            }
+        }
+
+        return final;
+    }
+};
