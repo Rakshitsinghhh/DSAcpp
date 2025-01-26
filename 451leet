@@ -1,0 +1,24 @@
+
+class Solution {
+public:
+    string frequencySort(string s) {
+        unordered_map<char, int> seen;
+        for (char ele : s) {
+            seen[ele]++;
+        }
+
+        vector<pair<char, int>> freqVector(seen.begin(), seen.end());
+
+        sort(freqVector.begin(), freqVector.end(), [](const pair<char, int>& a, const pair<char, int>& b) {
+            return a.second > b.second; 
+        });
+
+        string result = "";
+        for (auto& ele : freqVector) {
+            result += string(ele.second, ele.first);
+        }
+
+        return result;
+    }
+};
+
