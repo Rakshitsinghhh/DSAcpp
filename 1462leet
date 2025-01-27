@@ -1,0 +1,46 @@
+class Solution {
+public:
+
+    void helper(int n,unordered_map<int,vector<int>>& adj,vector<vector<bool>>& isPre)
+    {
+        for(int i=0;i<n;i++)
+        {
+            queue<int> q;
+            q.push(i);
+
+            while(!q.empty())
+            {
+                int node=q.front();
+                q.pop();
+
+                for(auto& ad : adj[node])
+                {
+                    if(!isPre[i][ad]){
+                        isPre[i][ad]=true;
+                        q.push(ad);
+                    }
+                }
+            }
+
+        }
+
+    }
+    vector<bool> checkIfPrerequisite(int numCourses, vector<vector<int>>& prerequisites, vector<vector<int>>& queries) {
+        unordered_map<int,vector<int>> adj;
+
+        for(auto edge : prerequisites)
+        {
+            adj[edge[0]].push_back(edge[1]);
+        }
+
+        vector<vector<bool>> isPre(numCourses,vector<bool>(numCourses,false));
+        helper(numCourses,adj,isPre);
+
+        vector<bool> res;
+        for(auto& q : queries)
+        {
+            res.push_back(isPre[q[0]][q[1]]);
+        }
+        return res;
+    }
+};
