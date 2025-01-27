@@ -1,0 +1,35 @@
+class Solution {
+public:
+    int binaryToDecimal(const string& binaryStr) {
+        int decimalValue = 0;
+        int length = binaryStr.length();
+
+        for (int i = 0; i < length; i++) {
+            if (binaryStr[i] == '1') {
+                decimalValue += pow(2, length - 1 - i);
+            } else if (binaryStr[i] != '0') {
+                return -1;
+            }
+        }
+        return decimalValue;
+    }
+
+    int findComplement(int num) {
+        string binaryStr = "";
+        while (num > 0) {
+            binaryStr = to_string(num % 2) + binaryStr; 
+            num /= 2;
+        }
+
+        string complementStr = "";
+        for (char ele : binaryStr) {
+            if (ele == '1') {
+                complementStr += '0';
+            } else {
+                complementStr += '1';
+            }
+        }
+
+        return binaryToDecimal(complementStr);
+    }
+};
