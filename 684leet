@@ -1,0 +1,48 @@
+class Solution {
+public:
+    vector<int> rank, parent;
+
+    int findup(int node) {
+        if (node == parent[node]) {
+            return node;
+        }
+        return parent[node] = findup(parent[node]); 
+    }
+
+    void unionbyrank(int u, int v) {
+        int uu = findup(u);
+        int uv = findup(v);
+
+        if (uu == uv) return; 
+
+        if (rank[uu] < rank[uv]) {
+            parent[uu] = uv;
+        } else if (rank[uu] > rank[uv]) {
+            parent[uv] = uu;
+        } else {
+            parent[uv] = uu;
+            rank[uu]++;
+        }
+    }
+
+    vector<int> findRedundantConnection(vector<vector<int>>& edges) {
+        int n = edges.size();
+        rank.resize(n + 1, 0);
+        parent.resize(n + 1); 
+
+        for (int i = 0; i <= n; i++) {
+            parent[i] = i;  
+        }
+
+        for (auto &edge : edges) {
+            int u = edge[0], v = edge[1];
+
+            if (findup(u) == findup(v)) {
+                return edge;
+            }
+
+            unionbyrank(u, v);
+        }
+        return {}; 
+    }
+};
