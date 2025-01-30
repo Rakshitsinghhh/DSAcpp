@@ -1,0 +1,61 @@
+class Solution {
+public:
+    vector<int> parent, rank;
+
+    int findp(int node) {
+        if (parent[node] == node) {
+            return node;
+        }
+        return parent[node] = findp(parent[node]);  // Path compression
+    }
+
+    bool unionrank(int u, int v) {
+        int up = findp(u);
+        int vp = findp(v);
+
+        if (up == vp) return true;  // Cycle detected
+
+        if (rank[up] < rank[vp]) {
+            parent[up] = vp;
+        } else if (rank[up] > rank[vp]) {
+            parent[vp] = up;
+        } else {
+            parent[vp] = up;
+            rank[up]++;
+        }
+        return false;
+    }
+
+    vector<int> findRedundantDirectedConnection(vector<vector<int>>& edges) {
+        int n = edges.size();
+        parent.resize(n + 1);
+        rank.resize(n + 1, 0);
+        vector<int> indegree(n + 1, -1);
+        vector<int> candidate1, candidate2;
+
+        for (auto& edge : edges) {
+            int u = edge[0], v = edge[1];
+            if (indegree[v] != -1) {
+                candidate1 = {indegree[v], v}; // First edge to v
+                candidate2 = {u, v};           // Second edge to v
+                continue;
+            }
+            indegree[v] = u;
+        }
+
+        for (int i = 0; i <= n; i++) {
+            parent[i] = i;
+        }
+
+        for (auto& edge : edges) {
+            if (!candidate1.empty() && edge == candidate2) continue; // Skip candidate2
+
+            int u = edge[0], v = edge[1];
+            if (unionrank(u, v)) {
+                return candidate1.empty() ? edge : candidate1;
+            }
+        }
+
+        return candidate2;
+    }
+};
