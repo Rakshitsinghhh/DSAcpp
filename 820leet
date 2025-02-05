@@ -1,0 +1,21 @@
+class Solution {
+public:
+    int minimumLengthEncoding(vector<string>& words) {
+        unordered_set<string> seen(words.begin(), words.end());  
+        string final;
+
+        for (const auto& ele : words) {
+            for (int i = 1; i < ele.size(); i++) {  
+                seen.erase(ele.substr(i));
+            }
+        }
+
+        for (const auto& word : seen) {  
+            final += word + "#";
+        }
+
+        return final.length();
+    }
+};
+
+
