@@ -1,0 +1,23 @@
+class Solution {
+public:
+    int minOperations(vector<int>& nums, int k) {
+        int ans=0;
+        priority_queue<long long,vector<long long>,greater<>> minheap;
+
+        for(const int num : nums)
+        {
+            minheap.push(num);
+        }
+
+        while(minheap.size()>1 && minheap.top()<k)
+        {
+            const int x=minheap.top();
+            minheap.pop();
+            const int y=minheap.top();
+            minheap.pop();
+            minheap.push(min(x,y)*2LL+max(x,y));
+            ++ans;
+        }
+        return ans;
+    }
+};
