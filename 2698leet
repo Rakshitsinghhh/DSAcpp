@@ -1,0 +1,27 @@
+class Solution {
+public:
+    bool partition(int i, int cur, int target, string str) {
+        if (i == str.length()) {
+            return cur == target;
+        }
+        
+        for (int j = i; j < str.length(); j++) {
+            int num = stoi(str.substr(i, j - i + 1)); 
+            if (partition(j + 1, cur + num, target, str)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    int punishmentNumber(int n) {
+        int res = 0;
+        for (int i = 1; i <= n; i++) { 
+            string str = to_string(i * i); 
+            if (partition(0, 0, i, str)) {
+                res += i * i;
+            }
+        }
+        return res;
+    }
+};
