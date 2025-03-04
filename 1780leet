@@ -1,0 +1,26 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+class Solution {
+public:
+    // int checker(int data) {
+    //     int ans = 0;
+    //     for (int i = 0; i < data; i++) {
+    //         int val = pow(3, i);
+    //         if (val <= data) {
+    //             ans = max(ans, i);
+    //         } else {
+    //             break;
+    //         }
+    //     }
+    //     return ans;
+    // }
+
+    bool checkPowersOfThree(int n) {
+        while (n > 0) {
+            if (n % 3 == 2) return false;
+            n /= 3;
+        }
+        return true;
+    }
+};
