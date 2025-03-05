@@ -1,0 +1,17 @@
+class Solution {
+public:
+    long long coloredCells(int n) {
+        vector<long long> answers;
+        long long val=1;
+        int diff=0;
+        while(n!=0)
+        {
+            val+=diff;
+            answers.push_back(val);
+            diff+=4;
+            n--;
+        }
+        return answers.back();
+        
+    }
+};
