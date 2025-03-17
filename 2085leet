@@ -1,0 +1,28 @@
+class Solution {
+public:
+    int countWords(vector<string>& words1, vector<string>& words2) {
+        unordered_map<string,int> seen1;
+        unordered_map<string,int> seen2;
+
+        for(auto& ele : words1)
+        {
+            seen1[ele]++;
+        }
+
+        for(auto& ele : words2)
+        {
+            seen2[ele]++;
+        }
+
+        int count=0;
+        for(auto& ele : seen1)
+        {
+            if(ele.second==1 && seen2[ele.first]==1)
+            {
+                count++;
+            }
+        }
+        return count;
+
+    }
+};
