@@ -1,0 +1,37 @@
+class Solution {
+public:
+    bool check(vector<int> array, int k)
+    {
+        int x = 0;
+        for (auto ele : array)
+        {
+            x |= ele;
+        }
+        return x >= k;
+    }
+
+    int minimumSubarrayLength(vector<int>& nums, int k) {
+        vector<vector<int>> subarray;
+        int s = INT_MAX;
+
+        for (int i = 0; i < nums.size(); i++)
+        {
+            vector<int> sarray;
+            for (int j = i; j < nums.size(); j++)
+            {
+                sarray.push_back(nums[j]);
+                subarray.push_back(sarray); 
+            }
+        }
+
+        for (auto ele : subarray)
+        {
+            if (check(ele, k))
+            {
+                s = min((int)ele.size(), s);  
+            }
+        }
+
+        return (s == INT_MAX) ? -1 : s;  
+    }
+};
