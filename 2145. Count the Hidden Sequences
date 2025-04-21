@@ -1,0 +1,22 @@
+class Solution {
+    #define ll long long
+public:
+    int numberOfArrays(vector<int>& differences, int lower, int upper) {
+        ll mini=0;
+        ll maxi=0;
+        ll current=0;
+
+        for(int i=0;i<differences.size();i++)
+        {
+            current+=differences[i];
+            mini=min(current,mini);
+            maxi=max(current,maxi);
+
+        }
+
+        int count=(upper-lower)-(maxi-mini)+1;
+
+        return count>0? count : 0;
+        
+    }
+};
