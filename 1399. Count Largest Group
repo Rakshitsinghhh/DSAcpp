@@ -1,0 +1,26 @@
+class Solution {
+public:
+    int countLargestGroup(int n) {
+        unordered_map<int, int> digitSumFreq; // to store frequency of each digit sum
+        int maxFreq = 0;
+
+        for (int i = 1; i <= n; ++i) {
+            int sum = 0, num = i;
+            while (num != 0) {
+                sum +=  num % 10;
+                num /= 10;
+            }
+            digitSumFreq[sum]++;
+            maxFreq = max(maxFreq, digitSumFreq[sum]);
+        }
+
+        int count = 0;
+        for (auto& pair : digitSumFreq) {
+            if (pair.second == maxFreq) {
+                count++;
+            }
+        }
+
+        return count;
+    }
+};
