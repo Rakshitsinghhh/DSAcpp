@@ -1,0 +1,25 @@
+class Solution {
+public:
+    int countSubarrays(vector<int>& nums) {
+        int count = 0;
+        vector<vector<int>> final;
+        for(int i = 0; i+2 < nums.size(); i++)
+        {
+            vector<int> small;
+            small.push_back(nums[i]);
+            small.push_back(nums[i + 1]);
+            small.push_back(nums[i + 2]);
+            final.push_back(small);
+        }
+
+        for(auto& ele : final)
+        {
+            int ans = ele[0] + ele[2];
+            if(ans*2 == ele[1])
+            {
+                count++;
+            }
+        }
+        return count;
+    }
+};
