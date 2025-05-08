@@ -1,0 +1,37 @@
+class Solution {
+public:
+    ListNode* rotateRight(ListNode* head, int k) {
+
+        vector<int> list;
+
+        ListNode* temp = head;
+        while (temp != nullptr) {
+            list.push_back(temp->val);
+            temp = temp->next;
+        }
+
+        int n = list.size();
+        if (n == 0) return nullptr;
+
+        k = k % n;  // Handle large k
+        int count = 0;
+        while (count != k) {
+            int lastVal = list[n - 1];  // get the last value
+            for (int j = n - 1; j > 0; j--) {
+                list[j] = list[j - 1];
+            }
+            list[0] = lastVal;  // place last value at front
+            count++;
+        }
+
+        head = new ListNode(list[0]);
+        temp = head;
+
+        for (int i = 1; i < list.size(); i++) {
+            ListNode* mover = new ListNode(list[i]);
+            temp->next = mover;
+            temp = temp->next;
+        }
+        return head;
+    }
+};
