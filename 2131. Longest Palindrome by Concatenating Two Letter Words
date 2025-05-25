@@ -1,0 +1,33 @@
+class Solution {
+public:
+    int longestPalindrome(vector<string>& words) {
+        int count = 0;
+        int pal = 0;
+        unordered_map<string, int> seen;
+
+        for (auto& ele : words) {
+            seen[ele]++;
+        }
+
+        for (auto& [word, freq] : seen) {
+            string rev = word;
+            reverse(rev.begin(), rev.end());
+
+            if (word == rev) {
+                count += (freq / 2) * 4;
+                if (freq % 2) pal = 1;
+            } else if (seen.count(rev)) {
+                int pairs = min(freq, seen[rev]);
+                count += pairs * 4;
+                seen[rev] = 0;
+                seen[word] = 0;
+            }
+        }
+
+        if (pal) {
+            count += 2;
+        }
+
+        return count;
+    }
+};
