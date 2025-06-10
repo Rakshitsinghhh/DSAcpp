@@ -1,0 +1,29 @@
+class Solution {
+public:
+    int maxDifference(string s) {
+        unordered_map<char, int> freq;
+
+        for (char c : s) {
+            freq[c]++;
+        }
+
+        int max_diff = INT_MIN;
+        vector<int> odd_freqs, even_freqs;
+
+        for (auto& p : freq) {
+            if (p.second % 2 == 0)
+                even_freqs.push_back(p.second);
+            else
+                odd_freqs.push_back(p.second);
+        }
+
+        // Try all combinations of odd - even
+        for (int odd : odd_freqs) {
+            for (int even : even_freqs) {
+                max_diff = max(max_diff, odd - even);
+            }
+        }
+
+        return max_diff == INT_MIN ? 0 : max_diff;
+    }
+};
