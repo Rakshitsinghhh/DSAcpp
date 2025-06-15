@@ -1,0 +1,39 @@
+class Solution {
+public:
+    int maxDiff(int num) {
+        string s = to_string(num);
+        string a = s, b = s;
+
+        // For maximum number: replace the first digit that's not '9' with '9'
+        for (char& c : a) {
+            if (c != '9') {
+                char from = c;
+                for (char& ch : a) {
+                    if (ch == from) ch = '9';
+                }
+                break;
+            }
+        }
+
+        // For minimum number: replace the first digit with '1' if not '1',
+        // else replace the first digit (not the first one) that's not '0' or '1' with '0'
+        if (b[0] != '1') {
+            char from = b[0];
+            for (char& ch : b) {
+                if (ch == from) ch = '1';
+            }
+        } else {
+            for (int i = 1; i < b.size(); i++) {
+                if (b[i] != '0' && b[i] != '1') {
+                    char from = b[i];
+                    for (char& ch : b) {
+                        if (ch == from) ch = '0';
+                    }
+                    break;
+                }
+            }
+        }
+
+        return stoi(a) - stoi(b);
+    }
+};
