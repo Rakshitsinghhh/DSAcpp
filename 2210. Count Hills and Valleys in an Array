@@ -1,0 +1,26 @@
+class Solution {
+public:
+    int countHillValley(vector<int>& nums) {
+        vector<int> duples;
+        int hills = 0;
+        int valley = 0;
+        duples.push_back(nums[0]);
+        for(int i=1;i<nums.size();++i){
+            if(nums[i]!=nums[i-1]){
+                duples.push_back(nums[i]);
+            }
+        }
+
+        for(int i=1;i<duples.size()-1;i++){
+            if(duples[i]>duples[i-1] && duples[i]>duples[i+1]){
+                hills++;
+            }
+
+            if(duples[i]<duples[i-1] && duples[i]<duples[i+1]){
+                valley++;
+            }
+        }
+        return valley+hills;
+        
+    }
+};
