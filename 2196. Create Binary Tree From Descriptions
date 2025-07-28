@@ -1,0 +1,54 @@
+class Solution {
+public:
+    TreeNode* createBinaryTree(vector<vector<int>>& descriptions) {
+        unordered_map<int, TreeNode*> nodes;
+        unordered_set<int> children;
+
+        for (auto& desc : descriptions) {
+            int parent = desc[0], child = desc[1], isLeft = desc[2];
+
+            if (!nodes.count(parent)) nodes[parent] = new TreeNode(parent);
+            if (!nodes.count(child))  nodes[child] = new TreeNode(child);
+
+            if (isLeft)
+                nodes[parent]->left = nodes[child];
+            else
+                nodes[parent]->right = nodes[child];
+
+            children.insert(child);
+        }
+
+        TreeNode* root = nullptr;
+        for (auto& [val, node] : nodes) {
+            if (!children.count(val)) {
+                root = node;
+                break;
+            }
+        }
+
+        return root;
+    }
+
+    // vector<int> levelOrder(TreeNode* root) {
+    //     vector<int> result;
+    //     if (!root) return result;
+
+    //     queue<TreeNode*> q;
+    //     q.push(root);
+
+    //     while (!q.empty()) {
+    //         TreeNode* node = q.front(); q.pop();
+    //         result.push_back(node->val);
+
+    //         if (node->left)  q.push(node->left);
+    //         if (node->right) q.push(node->right);
+    //     }
+
+    //     return result;
+    // }
+
+    // vector<int> getLevelOrder(vector<vector<int>>& descriptions) {
+    //     TreeNode* root = createBinaryTree(descriptions);
+    //     return levelOrder(root);
+    // }
+};
