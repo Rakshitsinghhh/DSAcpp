@@ -1,0 +1,18 @@
+class Solution {
+public:
+    int lengthOfLongestSubstring(string s) {
+        vector<char> all;
+        int len = 0;
+
+        for (char ele : s) {
+            auto it = find(all.begin(), all.end(), ele);
+            if (it != all.end()) {
+                all.erase(all.begin(), it + 1); 
+            }
+            all.push_back(ele);
+            len = max(len, (int)all.size()); 
+        }
+
+        return len;
+    }
+};
