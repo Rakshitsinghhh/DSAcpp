@@ -1,0 +1,21 @@
+class Solution {
+public:
+    int countCompleteDayPairs(vector<int>& hours) {
+        int left = 0;
+        int right = 1;
+        int count = 0;
+
+        while (left < hours.size() - 1) {
+            int hrs = hours[left] + hours[right];
+            if (hrs % 24 == 0) {
+                count++;
+            }
+            right++;
+            if (right == hours.size()) {
+                left++;
+                right = left + 1;
+            }
+        }
+        return count;
+    }
+};
