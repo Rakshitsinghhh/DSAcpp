@@ -1,22 +1,16 @@
 class Solution {
 public:
-    int tribonacci(int n) {
+    int ans(int n,vector<int> &dp){
 
-        if(n==0) return n;
+        if(n==0) return 0;
         if(n==1 || n==2) return 1;
+        if(dp[n]!=-1) return dp[n];
+        return dp[n]=ans(n-1,dp)+ans(n-2,dp)+ans(n-3,dp);
 
-        int a=0;
-        int b=1;
-        int c=1;
-        int ans=0;
-
-        for(int i=3;i<=n;i++){
-
-            ans=a+b+c;
-            a=b;
-            b=c;
-            c=ans;
-        }
-        return ans;
+    }
+    int tribonacci(int n) {
+        vector<int> dp(n+1,-1);
+        // return dp[n];
+        return ans(n, dp);
     }
 };
