@@ -1,0 +1,21 @@
+class Solution {
+public:
+    int maxOperations(vector<int>& nums) {
+        int i=0;
+        int count=0;
+        int sum=nums[i]+nums[i+1];
+
+        for(int i=2;i<nums.size();i+=2){
+            int a=nums[i];
+            int b=nums[i+1];
+
+            if(a+b==sum) count++;
+
+            else{
+                break;
+            }
+        }
+        return count+1;
+        
+    }
+};
