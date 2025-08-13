@@ -1,0 +1,23 @@
+class Solution {
+public:
+    vector<int> numberOfPairs(vector<int>& nums) {
+        vector<int> ans;
+        int sameCount=0;
+        int simple=0;
+
+        unordered_map<int,int> seen;
+        for(auto& ele : nums){
+            seen[ele]++;
+        }
+
+        for(auto& ele : seen){
+            sameCount+=ele.second/2;
+            simple+=ele.second%2;
+        }
+        ans.push_back(sameCount);
+        ans.push_back(simple);
+
+        return ans;
+        
+    }
+};
