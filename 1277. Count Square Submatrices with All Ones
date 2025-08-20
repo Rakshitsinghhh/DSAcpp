@@ -1,0 +1,45 @@
+class Solution {
+public:
+    int countSquares(vector<vector<int>>& matrix) {
+        // Edge case check - minimal addition
+        if (matrix.empty() || matrix[0].empty()) return 0;
+        
+        int count = 0;
+        
+        for (int i = 0; i < matrix.size(); i++) {
+            for (int j = 0; j < matrix[0].size(); j++) {
+                if (matrix[i][j] == 0) continue;
+                
+                count++;
+                
+                if (i + 1 < matrix.size() && j + 1 < matrix[0].size()) {
+                    if (matrix[i][j+1] == 1 && matrix[i+1][j] == 1 && matrix[i+1][j+1] == 1)
+                        count++;
+                }
+                
+                if (i + 2 < matrix.size() && j + 2 < matrix[0].size()) {
+                    if (matrix[i][j+1] == 1 && matrix[i][j+2] == 1 &&
+                        matrix[i+1][j] == 1 && matrix[i+1][j+1] == 1 && matrix[i+1][j+2] == 1 &&
+                        matrix[i+2][j] == 1 && matrix[i+2][j+1] == 1 && matrix[i+2][j+2] == 1)
+                        count++;
+                }
+                
+                for (int size = 4; size <= min((int)matrix.size() - i, (int)matrix[0].size() - j); size++) {
+                    bool valid = true;
+                    for (int x = i; x < i + size && valid; x++) {
+                        for (int y = j; y < j + size; y++) {
+                            if (matrix[x][y] != 1) {
+                                valid = false;
+                                break;
+                            }
+                        }
+                    }
+                    if (valid) count++;
+                    else break;
+                }
+            }
+        }
+        
+        return count;
+    }
+};
