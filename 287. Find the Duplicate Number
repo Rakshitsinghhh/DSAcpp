@@ -1,0 +1,17 @@
+class Solution {
+public:
+    int findDuplicate(vector<int>& nums) {
+        unordered_map<int,int> seen;
+
+        for(auto& ele : nums){
+            seen[ele]++;
+        }
+
+        for(auto& ele : seen){
+            if(ele.second>1) return ele.first;
+        }
+
+        return 0;
+        
+    }
+};
