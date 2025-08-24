@@ -1,0 +1,29 @@
+class Solution {
+public:
+    int longestSubarray(vector<int>& nums) {
+        int count=1;  // count of zeros we can delete
+        int left=0;
+        int right=0;
+        int maxLen=0;
+        
+        while(right<nums.size()){
+            if(nums[right]==0){
+                count--;
+            }
+            
+            // If we have more than 1 zero, shrink window from left
+            while(count<0){
+                if(nums[left]==0){
+                    count++;
+                }
+                left++;
+            }
+            
+            // Update maximum length (subtract 1 because we must delete one element)
+            maxLen = max(maxLen, right-left+1-1);
+            right++;
+        }
+        
+        return maxLen;
+    }
+};
