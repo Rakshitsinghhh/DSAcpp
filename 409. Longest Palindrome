@@ -1,0 +1,31 @@
+class Solution {
+public:
+    int longestPalindrome(string s) {
+        unordered_map<char,int> seen;
+
+        for(auto& ele : s){
+            seen[ele]++;
+        }
+
+        int length=0;
+        bool isOdd=false;
+
+
+        for(auto& ele : seen){
+            if(ele.second % 2==0){
+                length+=ele.second;
+            }
+            else{
+                length+=ele.second-1;
+                isOdd=true;
+            }
+        }
+
+        if(isOdd==true){
+            length+=1;
+        }
+
+        return length;
+        
+    }
+};
