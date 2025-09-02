@@ -1,0 +1,47 @@
+class Solution {
+public:
+    int numberOfPairs(vector<vector<int>>& points) {
+        int count = 0;
+
+        for (int i = 0; i < points.size(); i++) {
+            for (int j = i + 1; j < points.size(); j++) {
+                pair<int, int> a = {points[i][0], points[i][1]};
+                pair<int, int> b = {points[j][0], points[j][1]};
+
+                if (!(a.first <= b.first && a.second >= b.second)) {
+                    swap(a, b);
+                    if (!(a.first <= b.first && a.second >= b.second)) {
+                        continue;
+                    }
+                }
+
+                int minX = a.first;
+                int maxX = b.first;
+                int minY = b.second;
+                int maxY = a.second;
+
+                bool val = true;  
+
+                for (int k = 0; k < points.size(); k++) {
+                    if (k == i || k == j) continue; 
+
+                    int x = points[k][0];
+                    int y = points[k][1];
+
+                    bool insideOrOn = (x >= minX && x <= maxX && y >= minY && y <= maxY);
+
+                    if (insideOrOn) {
+                        val = false;
+                        break;
+                    }
+                }
+
+                if (val) {
+                    count++;
+                }
+            }
+        }
+
+        return count;
+    }
+};
