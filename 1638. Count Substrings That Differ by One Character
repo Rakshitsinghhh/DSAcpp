@@ -1,0 +1,19 @@
+class Solution {
+public:
+    int countSubstrings(string s, string t) {
+        int n = s.size(), m = t.size();
+        int count = 0;
+
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < m; j++) {
+                int mismatches = 0;
+                for (int k = 0; i + k < n && j + k < m; k++) {
+                    if (s[i + k] != t[j + k]) mismatches++;
+                    if (mismatches > 1) break;
+                    if (mismatches == 1) count++;
+                }
+            }
+        }
+        return count;
+    }
+};
