@@ -1,0 +1,12 @@
+class Solution {
+public:
+    int makeTheIntegerZero(int num1, int num2) {
+        for (int m = 1; m <= 60; m++) {
+            long long target = 1LL * num1 + 1LL * m * (-num2);
+
+            if (target < m) continue;
+            if (__builtin_popcountll(target) <= m) return m;
+        }
+        return -1;
+    }
+};
