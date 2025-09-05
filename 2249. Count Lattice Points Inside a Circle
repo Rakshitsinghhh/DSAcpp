@@ -1,0 +1,23 @@
+class Solution {
+public:
+    int countLatticePoints(vector<vector<int>>& circles) {
+        bool visited[205][205] = {false};  
+        int count = 0;
+
+        for (auto &c : circles) {
+            int x = c[0], y = c[1], r = c[2];
+            for (int i = x - r; i <= x + r; i++) {
+                for (int j = y - r; j <= y + r; j++) {
+                    if (i < 0 || j < 0) continue; // only non-negative coords
+                    if ((i - x) * (long long)(i - x) + (j - y) * (long long)(j - y) <= 1LL * r * r) {
+                        if (!visited[i][j]) {
+                            visited[i][j] = true;
+                            count++;
+                        }
+                    }
+                }
+            }
+        }
+        return count;
+    }
+};
