@@ -1,0 +1,17 @@
+class Solution {
+public:
+    int buttonWithLongestTime(vector<vector<int>>& events) {
+        int maxtime = events[0][1];     // first button's time
+        int index = events[0][0];       // first button index
+
+        for (int i = 1; i < events.size(); i++) {
+            int time = events[i][1] - events[i-1][1];  // correct order
+            if (time > maxtime || (time == maxtime && events[i][0] < index)) {
+                maxtime = time;
+                index = events[i][0];
+            }
+        }
+
+        return index;
+    }
+};
