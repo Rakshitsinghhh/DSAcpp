@@ -1,0 +1,27 @@
+class Solution {
+    public long minOperations(int[][] queries) {
+        long ans = 0;
+        for (int[] q : queries) {
+            int l = q[0], r = q[1];
+            long totalCost = prefixCost(r) - prefixCost(l - 1);
+            ans += (totalCost + 1) / 2; // ceil division
+        }
+        return ans;
+    }
+
+    // Computes prefix sum of cost(x) for [1..n]
+    private long prefixCost(long n) {
+        if (n <= 0) return 0;
+        long res = 0;
+        long start = 1;
+        int level = 1; // cost level
+        while (start <= n) {
+            long end = Math.min(n, start * 4 - 1);
+            long count = end - start + 1;
+            res += (long) level * count;
+            start *= 4;
+            level++;
+        }
+        return res;
+    }
+}
