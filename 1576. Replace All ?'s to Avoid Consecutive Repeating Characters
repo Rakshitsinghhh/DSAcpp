@@ -1,0 +1,25 @@
+class Solution {
+public:
+    string modifyString(string s) {
+        string alp = "abcdefghijklmnopqrstuvwxyz";
+
+        if (s.size() == 1) {
+            if (s[0] == '?') s[0] = 'a';
+            return s;
+        }
+
+        for (int i = 0; i < s.size(); i++) {
+            if (s[i] == '?') {
+                for (int j = 0; j < alp.size(); j++) {
+                    if ((i > 0 && s[i-1] == alp[j]) || (i+1 < s.size() && s[i+1] == alp[j])) {
+                        continue;
+                    }
+                    s[i] = alp[j];
+                    break;
+                }
+            }
+        }
+
+        return s;
+    }
+};
