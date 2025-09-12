@@ -1,0 +1,13 @@
+class Solution {
+public:
+    bool doesAliceWin(string s) {
+        string c = "aeiou";
+
+        for (auto ele : s) {
+            if (c.find(ele) != string::npos) {
+                return true; // Alice wins if any vowel exists
+            }
+        }
+        return false; // no vowels → Alice loses
+    }
+};
