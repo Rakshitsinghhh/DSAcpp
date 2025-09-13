@@ -1,0 +1,24 @@
+class Solution {
+public:
+    int maxFreqSum(string s) {
+        unordered_map<char,int> seen;
+        string vowels = "aeiou";
+
+        for(auto ele : s){
+            seen[ele]++;
+        }
+
+        int vcount = 0; 
+        int ccount = 0; 
+
+        for(auto &p : seen){
+            if(vowels.find(p.first) != string::npos){ 
+                vcount = max(vcount, p.second);
+            } else {
+                ccount = max(ccount, p.second);
+            }
+        }
+
+        return vcount + ccount;
+    }
+};
