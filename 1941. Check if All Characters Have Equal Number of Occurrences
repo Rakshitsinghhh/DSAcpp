@@ -1,0 +1,20 @@
+class Solution {
+public:
+    bool areOccurrencesEqual(string s) {
+        unordered_map<char,int> seen;
+
+        for (auto ele : s) {
+            seen[ele]++;
+        }
+
+        int count = seen.begin()->second; 
+
+        for (auto ele : seen) {
+            if (ele.second != count) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+};
