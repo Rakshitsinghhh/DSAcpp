@@ -1,0 +1,21 @@
+class Solution {
+public:
+    uint32_t reverseBits(uint32_t n) {
+        string bin = "";
+
+        while (n != 0) {
+            int d = n % 2;
+            bin = to_string(d) + bin; // prepend instead of append
+            n /= 2;
+        }
+
+        while (bin.size() < 32) {
+            bin = "0" + bin;
+        }
+
+        reverse(bin.begin(), bin.end());
+
+        uint32_t ans = stoul(bin, nullptr, 2);
+        return ans;
+    }
+};
