@@ -1,0 +1,26 @@
+class Solution {
+public:
+    int finalValueAfterOperations(vector<string>& operations) {
+        int count=0;
+
+        for(auto ele : operations){
+            if(ele=="++X"){
+                count+=1;
+            }
+            if(ele=="--X"){
+                count-=1;
+            }
+            if(ele=="X++"){
+                count+=1;
+            }
+            if(ele=="X--"){
+                count-=1;
+            }
+
+        }
+
+
+        return count;
+        
+    }
+};
