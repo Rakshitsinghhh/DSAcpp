@@ -1,0 +1,39 @@
+class Solution {
+public:
+    long long gcd(long long a, long long b) {
+        while (b != 0) {
+            long long temp = b;
+            b = a % b;
+            a = temp;
+        }
+        return a;
+    }
+
+    long long lcm(long long a, long long b) {
+        return (a / gcd(a, b)) * b;
+    }
+
+    vector<int> replaceNonCoprimes(vector<int>& nums) {
+        vector<long long> st; 
+
+        for (int num : nums) {
+            st.push_back(num);
+
+            while (st.size() > 1) {
+                long long a = st.back();
+                long long b = st[st.size() - 2];
+
+                long long g = gcd(a, b);
+
+                if (g == 1) break; 
+
+                st.pop_back();
+                st.pop_back();
+                st.push_back(lcm(a, b));
+            }
+        }
+
+        vector<int> ans(st.begin(), st.end());
+        return ans;
+    }
+};
