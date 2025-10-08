@@ -1,0 +1,33 @@
+class Solution {
+public:
+    int leastInterval(vector<char>& tasks, int n) {
+        unordered_map<char, int> freq;
+        queue<pair<int, int>> qt;
+
+        for (auto ele : tasks) {
+            freq[ele]++;
+        }
+
+        priority_queue<int> pq;
+        for (auto x : freq) {
+            pq.push(x.second);
+        }
+
+        int time = 0;
+
+        while (!pq.empty() || !qt.empty()) {
+            time += 1;
+            if (!pq.empty()) { // Fixed: added check
+                int a = pq.top();
+                pq.pop();
+                if (a - 1 > 0)                  // Fixed: added check
+                    qt.push({a - 1, time + n}); // Fixed: insert → push
+            }
+            if (!qt.empty() && qt.front().second == time) {
+                pq.push(qt.front().first);
+                qt.pop();
+            }
+        }
+        return time;
+    }
+};
