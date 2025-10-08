@@ -1,0 +1,29 @@
+class Solution {
+public:
+    vector<int> successfulPairs(vector<int>& spells, vector<int>& potions, long long success) {
+        vector<int> ans;
+        sort(potions.begin(),potions.end());
+        for(int i=0;i<spells.size();i++){
+
+            int start = 0;
+            int end = potions.size();
+            int maxidx = potions.size();
+
+            while(start<end){
+                int mid = (start+end)/2;
+                long long prod = (long long) spells[i]*potions[mid];
+                if(prod>=success){
+                    end=mid;
+                    maxidx=mid;
+                }
+
+                else{
+                    start=mid+1;
+                }
+            }
+
+            ans.push_back(potions.size()-maxidx);
+        }
+        return ans;
+    }
+};
