@@ -1,0 +1,26 @@
+class Solution {
+public:
+    vector<int> findAnagrams(string s, string p) {
+        unordered_map<char, int> given;
+        vector<int> answer;
+        int n = p.size();
+
+        for (auto ele : p) {
+            given[ele]++;
+        }
+
+        for (int i = 0; i + n <= s.size(); i++) {  
+            unordered_map<char, int> current;
+
+            for (int j = i; j < i + n; j++) {      
+                current[s[j]]++;                   
+            }
+
+            if (current == given) {
+                answer.push_back(i);
+            }
+        }
+
+        return answer;
+    }
+};
