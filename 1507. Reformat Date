@@ -1,0 +1,46 @@
+class Solution {
+public:
+    string reformatDate(string date) {
+        vector<string> Month = {"Jan", "Feb", "Mar", "Apr", "May", "Jun",
+                                "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"};
+
+        vector<string> days = {
+            "1st",  "2nd",  "3rd",  "4th",  "5th",  "6th",  "7th",  "8th",
+            "9th",  "10th", "11th", "12th", "13th", "14th", "15th", "16th",
+            "17th", "18th", "19th", "20th", "21st", "22nd", "23rd", "24th",
+            "25th", "26th", "27th", "28th", "29th", "30th", "31st"};
+
+        bool isSingle = false;
+
+        // fixed condition
+        if (date.size() == 13) {
+            isSingle = false;
+        } else {
+            isSingle = true;
+        }
+
+        string tarik, mon, year;
+
+        if (isSingle) {
+            tarik = "0" + date.substr(0, 1);
+            mon = date.substr(4, 3);
+            year = date.substr(8, 4);
+        } else {
+            tarik = date.substr(0, 2);
+            mon = date.substr(5, 3);
+            year = date.substr(9, 4);
+        }
+
+        string monthNum;
+        for (int i = 0; i < 12; i++) {
+            if (Month[i] == mon) {
+                if (i + 1 < 10) monthNum = "0" + to_string(i + 1);
+                else monthNum = to_string(i + 1);
+                break;
+            }
+        }
+
+        string finalDate = year + "-" + monthNum + "-" + tarik;
+        return finalDate;
+    }
+};
