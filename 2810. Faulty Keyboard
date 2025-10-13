@@ -1,0 +1,21 @@
+class Solution {
+public:
+    string rev(string a){
+        reverse(a.begin(), a.end());
+        return a;
+    }
+    string finalString(string s) {
+
+        string answer = "";
+        for(auto ele : s){
+            if(ele=='i'){
+                answer = rev(answer);
+            }else{
+                answer += ele;
+            }
+        }
+
+        return answer;
+        
+    }
+};
