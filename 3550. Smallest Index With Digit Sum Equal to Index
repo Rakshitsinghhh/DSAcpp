@@ -1,0 +1,33 @@
+class Solution {
+public:
+    int sum(int a) {
+        int answer = 0;
+        string n = to_string(a);
+
+        for (int i = 0; i < n.size(); i++) {
+            answer += n[i] - '0';
+        }
+        return answer;
+    }
+
+    int smallestIndex(vector<int>& nums) {
+        int answer = -1; 
+
+        for (int i = 0; i < nums.size(); i++) {
+            int checker = 0;
+
+            if (nums[i] < 10) {    
+                checker = nums[i];
+            } else {
+                checker = sum(nums[i]); 
+            }
+
+            if (checker == i) {
+                if (answer == -1) answer = i;
+                else answer = min(answer, i);
+            }
+        }
+
+        return answer;
+    }
+};
