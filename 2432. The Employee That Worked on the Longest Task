@@ -1,0 +1,27 @@
+class Solution {
+public:
+    int hardestWorker(int n, vector<vector<int>>& logs) {
+        int time = 0;
+
+        vector<pair<int,int>> seen;
+
+        for (auto ele : logs) {
+            int current = ele[1];
+            int taken = current - time;
+            seen.push_back({ele[0], taken});
+            time = current;             
+        }
+
+        int answer = seen[0].first;       
+        int maxTime = seen[0].second;
+
+        for (auto ele : seen) {
+            if (ele.second > maxTime || (ele.second == maxTime && ele.first < answer)) {
+                maxTime = ele.second;
+                answer = ele.first;
+            }
+        }
+
+        return answer;
+    }
+};
