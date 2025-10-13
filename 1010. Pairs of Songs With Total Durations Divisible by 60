@@ -4,6 +4,7 @@ public:
         int count = 0;
         int freq[60] = {0};
 
+
         for (int t : time) {
             int rem = t % 60;
             int complement = (60 - rem) % 60;
