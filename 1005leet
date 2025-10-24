@@ -8,7 +8,6 @@ public:
         for (int l = 0; l < k; l++) {
             ans = 0; 
 
-
             // Find the smallest element in the array
             for (int i = 1; i < nums.size(); i++) {
                 if (nums[i] < nums[ans]) {
