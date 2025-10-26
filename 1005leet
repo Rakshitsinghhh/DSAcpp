@@ -4,7 +4,6 @@ public:
 
         int ans = 0;
         int sum = 0;
-
         for (int l = 0; l < k; l++) {
             ans = 0; 
 
