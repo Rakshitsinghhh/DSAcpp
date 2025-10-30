@@ -1,0 +1,23 @@
+class Solution {
+public:
+    vector<string> summaryRanges(vector<int>& nums) {
+        vector<string> answer;
+        
+        if(nums.empty()) return answer;  
+        
+        int left = 0; 
+        
+        for(int right = 0; right < nums.size(); right++){
+            if(right == nums.size() - 1 || nums[right] + 1 != nums[right + 1]){
+                if(left == right){
+                    answer.push_back(to_string(nums[left]));
+                } else {
+                    answer.push_back(to_string(nums[left]) + "->" + to_string(nums[right]));
+                }
+                left = right + 1;
+            }
+        }
+        
+        return answer;
+    }
+};
