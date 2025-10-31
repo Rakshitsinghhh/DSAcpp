@@ -1,0 +1,22 @@
+class Solution {
+public:
+    vector<int> getSneakyNumbers(vector<int>& nums) {
+        vector<int> answer;
+
+        unordered_map<int,int> shanvi;
+
+        for(auto ele : nums){
+            shanvi[ele]++;
+        }
+
+
+        for(auto ele : shanvi){
+            if(ele.second > 1 && answer.size() < 2){
+                answer.push_back(ele.first);
+            }
+        }
+
+
+        return answer;        
+    }
+};
