@@ -1,0 +1,32 @@
+class Solution {
+public:
+    int maxSum(vector<int>& nums) {
+        if (nums.size() == 1) {
+            return nums[0];
+        }
+
+        int maxi = nums[0];
+        for (auto ele : nums) {
+            maxi = max(ele, maxi);
+        }
+
+        if (maxi < 0) {
+            return maxi;
+        }
+
+        int ans = 0;
+        unordered_set<int> seen;
+
+        for (auto ele : nums) {
+            seen.insert(ele);
+        }
+
+        for (auto ele : seen) {
+            if (ele >= 0) {
+                ans += ele;
+            }
+        }
+
+        return ans;
+    }
+};
