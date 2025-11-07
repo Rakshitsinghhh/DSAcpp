@@ -10,6 +10,7 @@ public:
             int complement = (60 - rem) % 60;
             count += freq[complement];
             freq[rem]++;
+
         }
         return count;
     }
