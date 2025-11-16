@@ -1,0 +1,28 @@
+class Solution {
+public:
+    int similarPairs(vector<string>& words) {
+        int count = 0;
+
+        for (int i = 0; i < words.size(); i++) {
+
+            unordered_set<char> seen1;
+            for (auto ele : words[i]) {
+                seen1.insert(ele);
+            }
+
+            for (int j = i + 1; j < words.size(); j++) {
+
+                unordered_set<char> seen2;
+                for (auto ele : words[j]) {  
+                    seen2.insert(ele);
+                }
+
+                if (seen1 == seen2) {
+                    count++;
+                }
+            }
+        }
+
+        return count;
+    }
+};
