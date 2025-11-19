@@ -1,0 +1,23 @@
+class Solution {
+public:
+    int findFinalValue(vector<int>& nums, int original) {
+
+        int current = original;
+
+        while (true) {
+            bool found = false;
+
+            for (int x : nums) {
+                if (x == current) {
+                    current *= 2;
+                    found = true;
+                    break;
+                }
+            }
+
+            if (!found) break;
+        }
+
+        return current;
+    }
+};
