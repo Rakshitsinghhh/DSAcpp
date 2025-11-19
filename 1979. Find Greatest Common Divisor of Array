@@ -1,0 +1,31 @@
+class Solution {
+public:
+    int findGCD(vector<int>& nums) {
+
+
+        int maxi = *max_element(nums.begin(), nums.end());
+        int mini = *min_element(nums.begin(), nums.end());
+
+        vector<int> q;
+
+        q.push_back(maxi);
+        q.push_back(mini);
+
+        int answer = 1;
+
+        for (int n = 1; n <= maxi; n++) {
+
+            bool ok = true;
+            for (int i = 0; i < q.size(); i++) {
+                if (q[i] % n != 0) {
+                    ok = false;
+                    break;
+                }
+            }
+
+            if (ok) answer = n;
+        }
+
+        return answer;
+    }
+};
