@@ -1,0 +1,46 @@
+class Solution {
+public:
+    vector<string> findRelativeRanks(vector<int>& score) {
+        unordered_map<int, string> seen;
+        bool gold = false;
+        bool silver = false;
+        bool bronze = false;
+        vector<string> final;
+        int maxi = *max_element(score.begin(), score.end());
+        int pos = 4;
+        int assigned = 0;
+        
+        while (assigned < score.size()) {
+            bool found = false;
+            
+            for (int j = 0; j < score.size(); j++) {
+                if (score[j] == maxi && seen.find(score[j]) == seen.end()) {
+                    if (!gold) {
+                        seen.insert({score[j], "Gold Medal"});
+                        gold = true;
+                    } else if (!silver) {
+                        seen.insert({score[j], "Silver Medal"});
+                        silver = true;
+                    } else if (!bronze) {
+                        seen.insert({score[j], "Bronze Medal"});
+                        bronze = true;
+                    } else {
+                        seen.insert({score[j], to_string(pos)});
+                        pos++;
+                    }
+                    assigned++;
+                    found = true;
+                    break;
+                }
+            }
+            
+            maxi--;
+        }
+        
+        for (auto ele : score) {
+            final.push_back(seen[ele]);
+        }
+        
+        return final;
+    }
+};;
