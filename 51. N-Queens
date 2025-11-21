@@ -1,0 +1,69 @@
+class Solution {
+public:
+    int N;
+    vector<vector<string>> ans;
+
+    // Check if placing a queen at position idx is safe
+    bool isSafe(vector<int>& board, int idx) {
+        int r = idx / N;      // row number
+        int c = idx % N;      // column number
+
+        // Check all previous cells (0 to idx-1)
+        for (int i = 0; i < idx; i++) {
+            if (board[i] == 1) {   // if a queen exists
+                int r2 = i / N;
+                int c2 = i % N;
+
+                // Same row?
+                if (r == r2) return false;
+
+                // Same column?
+                if (c == c2) return false;
+
+                // Same diagonal?
+                if (abs(r - r2) == abs(c - c2)) return false;
+            }
+        }
+        return true;
+    }
+
+    // Recursive function to place queens
+    void solve(int idx, int placed, vector<int>& board) {
+        // If we placed N queens → valid solution
+        if (placed == N) {
+            vector<string> temp(N, string(N, '.'));
+            
+            // Convert 1D board into string board
+            for (int i = 0; i < N*N; i++) {
+                if (board[i] == 1) {
+                    int r = i / N;
+                    int c = i % N;
+                    temp[r][c] = 'Q';
+                }
+            }
+            ans.push_back(temp);
+            return;
+        }
+
+        // If we reached end of board → stop
+        if (idx >= N*N) return;
+
+        // OPTION 1 — Try placing queen at idx
+        if (isSafe(board, idx)) {
+            board[idx] = 1;               // place queen
+            solve(idx + 1, placed + 1, board);  
+            board[idx] = 0;               // BACKTRACK
+        }
+
+        // OPTION 2 — Skip this cell
+        solve(idx + 1, placed, board);
+    }
+
+    vector<vector<string>> solveNQueens(int n) {
+        N = n;
+        vector<int> board(n * n, 0);  // initially empty board
+
+        solve(0, 0, board);           // start from index 0
+        return ans;
+    }
+};
