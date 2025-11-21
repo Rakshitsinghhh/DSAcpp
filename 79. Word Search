@@ -1,0 +1,43 @@
+class Solution {
+public:
+
+    int m, n;
+    vector<vector<int>> visit;
+
+    bool dfs(vector<vector<char>>& board, string& word, int idx, int r, int c) {
+        if (idx == word.size()) 
+            return true;
+        if (r < 0 || r >= m || c < 0 || c >= n) 
+            return false;
+
+        if (visit[r][c] == 1 || board[r][c] != word[idx]) 
+            return false;
+
+        visit[r][c] = 1;
+
+        bool found =
+            dfs(board, word, idx + 1, r + 1, c) ||
+            dfs(board, word, idx + 1, r - 1, c) ||
+            dfs(board, word, idx + 1, r, c + 1) ||
+            dfs(board, word, idx + 1, r, c - 1);
+
+        visit[r][c] = 0;
+
+        return found;
+    }
+
+    bool exist(vector<vector<char>>& board, string word) {
+        m = board.size();
+        n = board[0].size();
+        visit = vector<vector<int>>(m, vector<int>(n, 0));
+
+        for (int r = 0; r < m; r++) {
+            for (int c = 0; c < n; c++) {
+                if (dfs(board, word, 0, r, c)) 
+                    return true;
+            }
+        }
+
+        return false;
+    }
+};
