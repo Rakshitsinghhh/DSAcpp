@@ -1,0 +1,27 @@
+class Solution {
+public:
+    ListNode* deleteDuplicates(ListNode* head) {
+        if (!head) return nullptr;
+
+        unordered_set<int> seen;
+        vector<int> list;
+
+        ListNode* temp = head;
+        while(temp != nullptr){
+            if(seen.find(temp->val) == seen.end()){
+                seen.insert(temp->val);
+                list.push_back(temp->val);
+            }
+            temp = temp->next; 
+        }
+
+        ListNode* newHead = new ListNode(list[0]);
+        ListNode* mover = newHead;
+        for(int i = 1; i < list.size(); i++){
+            mover->next = new ListNode(list[i]);
+            mover = mover->next;
+        }
+
+        return newHead;
+    }
+};
