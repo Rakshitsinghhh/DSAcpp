@@ -1,0 +1,35 @@
+class Solution {
+public:
+    string intToRoman(int num) {
+        int dup = num;
+        string final;
+
+        vector<pair<string, int>> values = {
+            {"M", 1000},
+            {"CM", 900},
+            {"D", 500},
+            {"CD", 400},
+            {"C", 100},
+            {"XC", 90},
+            {"L", 50},
+            {"XL", 40},
+            {"X", 10},
+            {"IX", 9},
+            {"V", 5},
+            {"IV", 4},
+            {"I", 1}
+        };
+
+        while (dup != 0) {
+            for (int i = 0; i < values.size(); i++) {
+                if (dup - values[i].second >= 0) {
+                    final += values[i].first;
+                    dup -= values[i].second;
+                    break;
+                }
+            }
+        }
+
+        return final;
+    }
+};
