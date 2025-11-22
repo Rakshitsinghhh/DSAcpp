@@ -1,0 +1,43 @@
+class Solution {
+public:
+    int generateKey(int num1, int num2, int num3) {
+        string a = to_string(num1);
+        string b = to_string(num2);
+        string c = to_string(num3);
+
+        int maxi = max({a.size(), b.size(), c.size()});
+
+        if(a.size() < maxi){
+            string small = "";
+            for(int i = 0; i < maxi - a.size(); i++){
+                small += '0';
+            }
+            a = small + a;
+        }
+
+        if(b.size() < maxi){
+            string small = "";
+            for(int i = 0; i < maxi - b.size(); i++){
+                small += '0';
+            }
+            b = small + b;
+        }
+
+        if(c.size() < maxi){
+            string small = "";
+            for(int i = 0; i < maxi - c.size(); i++){
+                small += '0';
+            }
+            c = small + c;
+        }
+
+        string answer = "";
+
+        for(int i = 0; i < maxi; i++){
+            int mn = min({a[i] - '0', b[i] - '0', c[i] - '0'});
+            answer += char(mn + '0');
+        }
+
+        return stoi(answer);
+    }
+};
