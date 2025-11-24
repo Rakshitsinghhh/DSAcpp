@@ -1,0 +1,29 @@
+class Solution {
+public:
+    int titleToNumber(string columnTitle) {
+        int digit = 0;
+
+        for (int i = 0; i < columnTitle.size(); i++) {
+            digit = digit * 26 + (columnTitle[i] - 'A' + 1);
+        }
+
+        int last = 0;
+        int n = INT_MIN;
+
+        for (int i = 0; i < columnTitle.size(); i++) {
+            int k = 26 * i;
+            if (k <= digit) {
+                n = max(k, n);
+            }
+        }
+
+        for (int i = 0; i < columnTitle.size(); i++) {
+            if (26 * n + i == digit) {
+                last = i;
+                break;
+            }
+        }
+
+        return digit;
+    }
+};
