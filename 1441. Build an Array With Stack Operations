@@ -1,0 +1,31 @@
+class Solution {
+public:
+    vector<string> buildArray(vector<int>& target, int n) {
+        vector<string> answer;
+        vector<int> stack;
+
+        unordered_set<int> seen(target.begin(), target.end());
+
+        for (int i = 1; i <= n; i++) {
+
+            if (stack == target) {
+                return answer;
+            }
+
+            // if i is in target
+            if (seen.find(i) != seen.end()) {
+                answer.push_back("Push");
+                stack.push_back(i);
+            }
+            else {  // i is NOT in target
+                answer.push_back("Push");
+                answer.push_back("Pop");
+
+                stack.push_back(i);
+                stack.pop_back();
+            }
+        }
+
+        return answer;
+    }
+};
