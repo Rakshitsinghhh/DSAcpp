@@ -1,0 +1,24 @@
+class Solution {
+public:
+    string reverseWords(string s) {
+        string final = "";
+        string a = "";
+
+        for (auto ele : s) {
+            if (ele != ' ') {
+                a += ele;
+            } else {
+                reverse(a.begin(), a.end());
+                final += a + " ";
+                a = "";
+            }
+        }
+
+        if (!a.empty()) {
+            reverse(a.begin(), a.end());
+            final += a;
+        }
+
+        return final;
+    }
+};
