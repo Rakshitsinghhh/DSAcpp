@@ -1,0 +1,28 @@
+class Solution {
+public:
+    int count = 0;
+    vector<int> answer;
+
+    void maker(TreeNode * root){
+        if(root == nullptr) return;
+
+        answer.push_back(root->val);
+        int n = answer.size();
+
+        int mx = *max_element(answer.begin(), answer.end());
+
+        if(answer[n-1] == mx){
+            count++;
+        }
+
+        if(root->left)  maker(root->left);
+        if(root->right) maker(root->right);
+
+        answer.pop_back();
+    }
+
+    int goodNodes(TreeNode* root) {
+        maker(root);
+        return count;
+    }
+};
