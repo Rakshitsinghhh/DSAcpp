@@ -1,0 +1,17 @@
+class Solution {
+public:
+    int countDigits(int num) {
+        int count=0;
+
+        string a=to_string(num);
+        for(int i=0;i<a.size();i++){
+            int d = a[i]-'0';
+
+            if(num%d==0){
+                count++;
+            }
+        }
+
+        return count;
+    }
+};
