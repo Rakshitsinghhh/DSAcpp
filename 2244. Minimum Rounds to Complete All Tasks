@@ -1,0 +1,36 @@
+class Solution {
+public:
+    int minimumRounds(vector<int>& tasks) {
+        unordered_map<int,int> seen;
+
+        for (auto ele : tasks) {
+            seen[ele]++;
+        }
+
+        int count = 0;
+
+        for (auto &ele : seen) {
+            int a = ele.second;
+
+            if (a == 1) return -1;
+
+            if (a == 2 || a == 3) {
+                count++;
+                continue;
+            }
+
+            int rounds = a / 3;
+            int rem = a % 3;
+
+            if (rem == 1) 
+                rounds += 1;
+
+            else if (rem == 2) 
+                rounds += 1;
+
+            count += rounds;
+        }
+
+        return count;
+    }
+};
