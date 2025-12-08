@@ -1,0 +1,24 @@
+class Solution {
+public:
+    string processStr(string s) {
+        string result = "";
+
+        for (char ele : s) {
+
+            if (ele == '#') {
+                result += result;
+            }
+            else if (ele == '%') {
+                reverse(result.begin(), result.end());
+            }
+            else if (ele == '*') {
+                if (!result.empty()) result.pop_back();
+            }
+            else {
+                result += ele;
+            }
+        }
+
+        return result;
+    }
+};
