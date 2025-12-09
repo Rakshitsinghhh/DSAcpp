@@ -1,0 +1,53 @@
+class Solution {
+public:
+    vector<vector<int>> spiralMatrix(int m, int n, ListNode* head) {
+
+        vector<int> list(m*n, -1);
+        vector<vector<int>> ans(m, vector<int>(n, -1));
+
+        ListNode* temp = head;
+        int ind = 0;
+        while(temp != nullptr){
+            list[ind++] = temp->val;
+            temp = temp->next;
+        }
+
+        int left = 0, right = n - 1;
+        int top = 0, bottom = m - 1;
+
+        int index = 0;
+
+        while(left <= right && top <= bottom){
+
+            // fill left -> right
+            for(int i = left; i <= right && index < m*n; i++){
+                ans[top][i] = list[index++];
+            }
+            top++;
+
+            // fill top -> bottom
+            for(int i = top; i <= bottom && index < m*n; i++){
+                ans[i][right] = list[index++];
+            }
+            right--;
+
+            // fill right -> left
+            if(top <= bottom){
+                for(int i = right; i >= left && index < m*n; i--){
+                    ans[bottom][i] = list[index++];
+                }
+                bottom--;
+            }
+
+            // fill bottom -> top
+            if(left <= right){
+                for(int i = bottom; i >= top && index < m*n; i--){
+                    ans[i][left] = list[index++];
+                }
+                left++;
+            }
+        }
+
+        return ans;
+    }
+};
