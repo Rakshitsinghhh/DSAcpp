@@ -1,0 +1,15 @@
+class Solution {
+public:
+    vector<int> sortedSquares(vector<int>& nums) {
+        vector<int> answer;
+
+        for(auto ele : nums){
+            answer.push_back(ele*ele);
+        }
+
+        sort(answer.begin(),answer.end());
+
+        return answer;
+        
+    }
+};
