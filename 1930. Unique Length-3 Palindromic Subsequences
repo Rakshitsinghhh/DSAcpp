@@ -25,6 +25,8 @@ public:
             int j=p.second;
 
             unordered_set<char> st;
+
+
             for(int x=i+1;x<j;x++)
             {
                 st.insert(s[x]);
