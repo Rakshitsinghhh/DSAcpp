@@ -1,0 +1,44 @@
+import java.util.*;
+
+class Solution {
+    public boolean pyramidTransition(String bottom, List<String> allowed) {
+        Map<String, List<Character>> map = new HashMap<>();
+        
+        for (String s : allowed) {
+            String key = s.substring(0, 2);
+            map.computeIfAbsent(key, k -> new ArrayList<>()).add(s.charAt(2));
+        }
+        
+        return build(bottom, map);
+    }
+    
+    private boolean build(String cur, Map<String, List<Character>> map) {
+        if (cur.length() == 1) return true;
+        
+        List<String> nextLevels = new ArrayList<>();
+        generate(cur, 0, new StringBuilder(), map, nextLevels);
+        
+        for (String next : nextLevels) {
+            if (build(next, map)) return true;
+        }
+        return false;
+    }
+    
+    private void generate(String cur, int idx, StringBuilder sb,
+                          Map<String, List<Character>> map,
+                          List<String> res) {
+        if (idx == cur.length() - 1) {
+            res.add(sb.toString());
+            return;
+        }
+        
+        String key = cur.substring(idx, idx + 2);
+        if (!map.containsKey(key)) return;
+        
+        for (char ch : map.get(key)) {
+            sb.append(ch);
+            generate(cur, idx + 1, sb, map, res);
+            sb.deleteCharAt(sb.length() - 1);
+        }
+    }
+}
