@@ -1,0 +1,30 @@
+class Solution {
+public:
+    vector<int> plusOne(vector<int>& digits) {
+        string a = "";
+        vector<int> answer;
+
+        for (auto ele : digits) {
+            a += char(ele + '0');
+        }
+
+        int i = a.size() - 1;
+
+        while (i >= 0 && a[i] == '9') {
+            a[i] = '0';
+            i--;
+        }
+
+        if (i < 0) {
+            a = '1' + a;
+        } else {
+            a[i]++;
+        }
+
+        for (auto ch : a) {
+            answer.push_back(ch - '0');
+        }
+
+        return answer;
+    }
+};
