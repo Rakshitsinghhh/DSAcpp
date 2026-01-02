@@ -1,0 +1,20 @@
+class Solution {
+public:
+    int repeatedNTimes(vector<int>& nums) {
+        unordered_map<int,int> seen;
+        for(auto ele : nums){
+            seen[ele]++;
+        }
+
+
+        int s = nums.size();
+
+        for(auto ele : seen){
+            if(ele.second*2==s){
+                return ele.first;
+            }
+        }
+
+        return -1;
+    }
+};
