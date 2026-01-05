@@ -1,0 +1,22 @@
+class Solution {
+public:
+    long long maxMatrixSum(vector<vector<int>>& matrix) {
+        long long tsum = 0;
+        int count = 0;
+        int mini = INT_MAX;
+
+        for (auto &row : matrix) {
+            for (auto val : row) {
+                if (val < 0) count++;
+                tsum += abs(val);
+                mini = min(mini, abs(val));
+            }
+        }
+
+        if (count % 2 == 0) {
+            return tsum;
+        } else {
+            return tsum - 2LL * mini;
+        }
+    }
+};
