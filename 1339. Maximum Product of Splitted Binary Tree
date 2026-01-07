@@ -1,0 +1,30 @@
+class Solution {
+public:
+    long long totalSum = 0;
+    long long best = 0;   // renamed variable
+    const int MOD = 1e9 + 7;
+
+    long long dfsSum(TreeNode* root) {
+        if (!root) return 0;
+        return root->val + dfsSum(root->left) + dfsSum(root->right);
+    }
+
+    long long dfs(TreeNode* root) {
+        if (!root) return 0;
+
+        long long left = dfs(root->left);
+        long long right = dfs(root->right);
+
+        long long subTreeSum = root->val + left + right;
+
+        best = max(best, subTreeSum * (totalSum - subTreeSum));
+
+        return subTreeSum;
+    }
+
+    int maxProduct(TreeNode* root) {
+        totalSum = dfsSum(root);   // first DFS
+        dfs(root);                 // second DFS
+        return best % MOD;
+    }
+};
