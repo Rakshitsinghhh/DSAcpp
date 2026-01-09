@@ -6,6 +6,7 @@ public:
         vector<int> digits; // Fixed typo: Renamed 'digit' to 'digits'
         vector<bool> result; // To store the final output
         string s;
+
         
         for (int i = 0; i < nums.size(); i++) {
             s = "";
