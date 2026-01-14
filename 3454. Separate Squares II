@@ -1,0 +1,99 @@
+class Solution {
+public:
+    struct Event {
+        long long y;
+        int type;          // +1 = add, -1 = remove
+        long long x1, x2;
+    };
+
+    vector<long long> xs;
+    vector<int> cover;
+    vector<long long> length;
+
+    void update(int node, int l, int r, int ql, int qr, int val) {
+        if (qr <= l || r <= ql) return;
+
+        if (ql <= l && r <= qr) {
+            cover[node] += val;
+        } else {
+            int mid = (l + r) / 2;
+            update(node * 2, l, mid, ql, qr, val);
+            update(node * 2 + 1, mid, r, ql, qr, val);
+        }
+
+        if (cover[node] > 0) {
+            length[node] = xs[r] - xs[l];
+        } else {
+            if (l + 1 == r) length[node] = 0;
+            else length[node] = length[node * 2] + length[node * 2 + 1];
+        }
+    }
+
+    double separateSquares(vector<vector<int>>& squares) {
+        vector<Event> events;
+
+        for (auto &s : squares) {
+            long long x = s[0], y = s[1], l = s[2];
+            events.push_back({y, +1, x, x + l});
+            events.push_back({y + l, -1, x, x + l});
+            xs.push_back(x);
+            xs.push_back(x + l);
+        }
+
+        sort(xs.begin(), xs.end());
+        xs.erase(unique(xs.begin(), xs.end()), xs.end());
+
+        sort(events.begin(), events.end(),
+             [](const Event &a, const Event &b) {
+                 return a.y < b.y;
+             });
+
+        int n = xs.size();
+        cover.assign(4 * n, 0);
+        length.assign(4 * n, 0);
+
+        // -------- First Pass: total area --------
+        long double totalArea = 0;
+        long long prevY = events[0].y;
+
+        for (auto &e : events) {
+            long long y = e.y;
+            totalArea += length[1] * (y - prevY);
+
+            int l = lower_bound(xs.begin(), xs.end(), e.x1) - xs.begin();
+            int r = lower_bound(xs.begin(), xs.end(), e.x2) - xs.begin();
+            update(1, 0, n - 1, l, r, e.type);
+
+            prevY = y;
+        }
+
+        long double half = totalArea / 2.0;
+
+        // -------- Second Pass: find split --------
+        fill(cover.begin(), cover.end(), 0);
+        fill(length.begin(), length.end(), 0);
+
+        long double curr = 0;
+        prevY = events[0].y;
+
+        for (auto &e : events) {
+            long long y = e.y;
+            long double areaGain = length[1] * (y - prevY);
+
+            if (curr + areaGain >= half) {
+                if (length[1] == 0) return prevY;
+                return (double)(prevY + (half - curr) / length[1]);
+            }
+
+            curr += areaGain;
+
+            int l = lower_bound(xs.begin(), xs.end(), e.x1) - xs.begin();
+            int r = lower_bound(xs.begin(), xs.end(), e.x2) - xs.begin();
+            update(1, 0, n - 1, l, r, e.type);
+
+            prevY = y;
+        }
+
+        return (double)prevY;
+    }
+};
