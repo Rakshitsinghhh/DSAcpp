@@ -1,0 +1,36 @@
+class Solution {
+public:
+    int count = 0;
+
+    bool checker(vector<int>& nums) {
+        for (int i = 0; i < nums.size() - 1; i++) {
+            if (nums[i] > nums[i + 1]) {  // non-decreasing check
+                return false;
+            }
+        }
+        return true;
+    }
+
+    int minimumPairRemoval(vector<int>& nums) {
+
+        while (!checker(nums)) {
+
+            int mini = INT_MAX;
+            int idx = 0;
+
+            for (int i = 0; i < nums.size() - 1; i++) {
+                int sum = nums[i] + nums[i + 1];   // FIX: sum instead of difference
+                if (sum < mini) {
+                    mini = sum;
+                    idx = i;
+                }
+            }
+
+            nums[idx] = nums[idx] + nums[idx + 1];
+            nums.erase(nums.begin() + idx + 1);
+            count++;
+        }
+
+        return count;
+    }
+};
