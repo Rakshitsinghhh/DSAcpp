@@ -1,0 +1,33 @@
+class Solution {
+public:
+    bool checker(unordered_map<char,int>& seen){
+        if(seen.size() == 0) return false;
+
+        int c = seen.begin()->second;
+
+        for(auto ele : seen){
+            if(ele.second != c){
+                return false;
+            }
+        }
+        return true;
+    }
+
+    int longestBalanced(string s) {
+        int answer = 0;
+
+        for(int i = 0; i < s.size(); i++){
+            unordered_map<char,int> seen;
+
+            for(int j = i; j < s.size(); j++){
+                seen[s[j]]++;
+
+                if(checker(seen)){
+                    answer = max(answer, j - i + 1);
+                }
+            }
+        }
+
+        return answer;
+    }
+};
