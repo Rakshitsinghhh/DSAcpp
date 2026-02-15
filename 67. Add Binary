@@ -1,0 +1,50 @@
+class Solution {
+public:
+    string addBinary(string a, string b) {
+        
+
+        if(a.size() < b.size())
+            swap(a, b);
+        
+        int diff = a.size() - b.size();
+        while(diff--) {
+            b = "0" + b;
+        }
+
+        string answer = "";
+        int carry = 0;
+
+        for(int i = a.size() - 1; i >= 0; i--) {
+            
+            int x = a[i] - '0';
+            int y = b[i] - '0';
+            
+            int sum = x + y + carry;
+            
+            if(sum == 0) {
+                answer.push_back('0');
+                carry = 0;
+            }
+            else if(sum == 1) {
+                answer.push_back('1');
+                carry = 0;
+            }
+            else if(sum == 2) {
+                answer.push_back('0');
+                carry = 1;
+            }
+            else {
+                answer.push_back('1');
+                carry = 1;
+            }
+        }
+
+
+        if(carry)
+            answer.push_back('1');
+
+        reverse(answer.begin(), answer.end());
+
+        return answer;
+    }
+};
