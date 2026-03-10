@@ -22,6 +22,7 @@ public:
             sum += ele;
         }
 
+
         return sum;
     }
 };
