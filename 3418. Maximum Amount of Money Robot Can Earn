@@ -1,0 +1,35 @@
+class Solution {
+public:
+    int nrow, ncol;
+
+    int recu(int row, int col, vector<vector<int>>& coins, int k) {
+        if (row >= nrow || col >= ncol) return INT_MIN;
+
+        if (row == nrow - 1 && col == ncol - 1) {
+            if (coins[row][col] < 0 && k > 0) return 0;
+            return coins[row][col];
+        }
+
+        int take = coins[row][col] + max(
+            recu(row + 1, col, coins, k),
+            recu(row, col + 1, coins, k)
+        );
+
+        int skip = INT_MIN;
+        if (coins[row][col] < 0 && k > 0) {
+            skip = max(
+                recu(row + 1, col, coins, k - 1),
+                recu(row, col + 1, coins, k - 1)
+            );
+        }
+
+        return max(take, skip);
+    }
+
+    int maximumAmount(vector<vector<int>>& coins) {
+        nrow = coins.size();
+        ncol = coins[0].size();
+
+        return recu(0, 0, coins, 2);
+    }
+};
