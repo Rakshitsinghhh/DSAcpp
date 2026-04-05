@@ -1,0 +1,30 @@
+class Solution {
+public:
+    vector<int> executeInstructions(int n, vector<int>& startPos, string s) {
+        vector<int> answer;
+
+        for (int i = 0; i < s.size(); i++) {
+            int crow = startPos[0];
+            int ccol = startPos[1];
+            int count = 0;
+
+            for (int j = i; j < s.size(); j++) {
+
+                if (s[j] == 'U') crow--;
+                if (s[j] == 'D') crow++;
+                if (s[j] == 'L') ccol--;
+                if (s[j] == 'R') ccol++;
+
+                if (crow >= 0 && crow < n && ccol >= 0 && ccol < n) {
+                    count++;
+                } else {
+                    break;
+                }
+            }
+
+            answer.push_back(count);
+        }
+
+        return answer;
+    }
+};
