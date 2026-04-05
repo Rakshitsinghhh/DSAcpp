@@ -1,0 +1,28 @@
+class Solution {
+public:
+    bool judgeCircle(string moves) {
+        vector<int> original={0,0};
+
+        for(auto ele : moves){
+            if(ele=='U'){
+                original[1]=original[1]++;
+            }
+            if(ele=='D'){
+                original[1]=original[1]--;
+            }
+            if(ele=='L'){
+                original[0]=original[0]--;
+            }
+            if(ele=='R'){
+                original[0]=original[0]++;
+            }
+        }
+
+        if(original=={0,0}){
+            return true;
+        }
+
+        return false;
+        
+    }
+};
