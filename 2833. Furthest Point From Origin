@@ -1,0 +1,53 @@
+class Solution {
+public:
+    int furthestDistanceFromOrigin(string moves) {
+        int left=0;
+        int right=0;
+
+        for(auto ele : moves){
+            if(ele=='L'){
+                left++;
+            }
+
+            if(ele=='R'){
+                right++;
+            }
+        }
+        string sign="";
+
+        if(left<=right){
+            sign='R';
+        }
+
+        else{
+            sign='L';
+        }
+
+        string final = "";
+
+        for(auto ele : moves){
+            if(ele=='_'){
+                final+=sign;
+            }
+            else{
+                final+=ele;
+            }
+        }
+
+        int position=0;
+
+        for(auto ele : final){
+            if(ele=='L'){
+                position--;
+            }
+
+            if(ele=='R'){
+                position++;
+            }
+        }
+
+        return abs(position);
+        
+    }
+};
+
