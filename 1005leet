@@ -14,7 +14,6 @@ public:
 
             nums[ans] = -nums[ans];
         }
-
         // Calculate the sum of the array
 
         for (int ele : nums) {
