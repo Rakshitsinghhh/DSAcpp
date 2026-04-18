@@ -1,0 +1,10 @@
+class Solution {
+public:
+    int mirrorDistance(int n) {
+        string a=to_string(n);
+        reverse(a.begin(),a.end());
+        int b=stoi(a);
+        int answer=abs(b-n);
+        return answer;
+    }
+};
