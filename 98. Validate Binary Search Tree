@@ -1,0 +1,23 @@
+class Solution {
+public:
+
+    bool dfs(TreeNode* root, long minval, long maxval){
+
+        if(root == nullptr){
+            return true;
+        }
+
+        if(root->val <= minval || root->val >= maxval){
+            return false;
+        }
+
+        return dfs(root->left, minval, root->val) &&
+               dfs(root->right, root->val, maxval);
+    }
+
+    bool isValidBST(TreeNode* root) {
+
+        return dfs(root, LONG_MIN, LONG_MAX);
+
+    }
+};
